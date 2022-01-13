@@ -92,6 +92,9 @@ function placeInTable(y, x) {
 
 function endGame(msg) {
   // TODO: pop up alert message
+  alert(msg)
+  let top = document.getElementById("column-top");
+  top.removeEventListener("click", handleClick);
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -139,9 +142,16 @@ function checkForWin() {
   function _win(cells) {
 
     // TODO: Check four cells to see if they're all legal & all color of current player
-    for (cell of cells) {
-      let x, y = [...cell];
+
+    for (let cell of cells) {
+      let [y, x]= [...cell];
+      if (y > HEIGHT - 1 || y < 0 || x > WIDTH - 1 || x < 0) {
+        return false;
+      } else if (board[y][x] !== currPlayer) {
+        return false;
+      }
     }
+    return true;
   }
 
   // using HEIGHT and WIDTH, generate "check list" of coordinates
